@@ -33,14 +33,14 @@ public class UserController {
         return new ResponseEntity<>(userService.getUserById(id), HttpStatus.FOUND);
     }
 
-    @GetMapping(path = "/getuserbyfirstname/{id}", produces = "application/json")
-    public ResponseEntity<List<User>> getUserByFirstName(@PathVariable String firstName) {
+    @GetMapping(path = "/getuserbyfirstname/{firstName}", produces = "application/json")
+    public ResponseEntity<User>  getUserByFirstName(@PathVariable String firstName) {
         return new ResponseEntity<>(userService.getUserByFirstName(firstName), HttpStatus.FOUND);
     }
 
-    @GetMapping(path = "/getuserbylastname/{id}", produces = "application/json")
-    public ResponseEntity<List<User>> getUserByLastName(@PathVariable String firstName) {
-        return new ResponseEntity<>(userService.getUserByLastName(firstName), HttpStatus.FOUND);
+    @GetMapping(path = "/getuserbylastname/{lastName}", produces = "application/json")
+    public ResponseEntity<User> getUserByLastName(@PathVariable String lastName) {
+        return new ResponseEntity<>(userService.getUserByLastName(lastName), HttpStatus.FOUND);
     }
 
     @GetMapping(path = "/getUserAccount", produces = "application/json")

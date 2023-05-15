@@ -1,6 +1,5 @@
 package io.maddennis.turnkeychallenge.entity;
 
-import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
@@ -14,7 +13,7 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @NoArgsConstructor
-@Table(name = "usera_tbl")
+@Table(name = "users_tbl")
 public class User {
 
     @Id
