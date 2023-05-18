@@ -34,7 +34,7 @@ public class UserController {
     }
 
     @GetMapping(path = "/getuserbyfirstname/{firstName}", produces = "application/json")
-    public ResponseEntity<User>  getUserByFirstName(@PathVariable String firstName) {
+    public ResponseEntity<User>    getUserByFirstName(@PathVariable String firstName) {
         return new ResponseEntity<>(userService.getUserByFirstName(firstName), HttpStatus.FOUND);
     }
 

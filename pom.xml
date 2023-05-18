@@ -67,6 +67,7 @@
 				</configuration>
 			</plugin>
 		</plugins>
+		<finalName>turnkey</finalName>
 	</build>
 
 </project>
