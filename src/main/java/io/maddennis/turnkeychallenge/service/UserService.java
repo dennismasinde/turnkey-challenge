@@ -4,6 +4,7 @@ import io.maddennis.turnkeychallenge.entity.User;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 public interface UserService {
 
@@ -12,7 +13,7 @@ public interface UserService {
     User getUserById(Long id);
     User getUserByFirstName(String firstName);
     User getUserByLastName(String lastName);
-    List<User> getAllUsers();
+    List<User> getAllUsers(Integer pageNo, Integer pageSize, String sortBy);
     int getUserAccountNumber(Long id);
     LocalDateTime getUserAccountCreationDate(Long id);
 

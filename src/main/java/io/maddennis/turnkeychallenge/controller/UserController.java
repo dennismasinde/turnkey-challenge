@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/v1/users")
@@ -33,8 +34,13 @@ public class UserController {
         return new ResponseEntity<>(userService.getUserById(id), HttpStatus.FOUND);
     }
 
+    @GetMapping(produces = "application/json")
+    public ResponseEntity<List<User>> getAllUsers(Integer pageNo, Integer pageSize, String sortBy) {
+        return new ResponseEntity<>(userService.getAllUsers(pageNo,pageSize,sortBy), HttpStatus.FOUND);
+    }
+
     @GetMapping(path = "/getuserbyfirstname/{firstName}", produces = "application/json")
-    public ResponseEntity<User>    getUserByFirstName(@PathVariable String firstName) {
+    public ResponseEntity<User> getUserByFirstName(@PathVariable String firstName) {
         return new ResponseEntity<>(userService.getUserByFirstName(firstName), HttpStatus.FOUND);
     }
 
@@ -43,12 +49,12 @@ public class UserController {
         return new ResponseEntity<>(userService.getUserByLastName(lastName), HttpStatus.FOUND);
     }
 
-    @GetMapping(path = "/getUserAccount", produces = "application/json")
+    @GetMapping(path = "/getUserAccount/{id}", produces = "application/json")
     public ResponseEntity<Integer> getUserAccountNumber(@PathVariable Long id) {
         return new ResponseEntity<>(userService.getUserAccountNumber(id), HttpStatus.FOUND);
     }
 
-    @GetMapping(path = "/getUserAccCreationDate", produces = "application/json")
+    @GetMapping(path = "/getUserAccCreationDate/{id}", produces = "application/json")
     public ResponseEntity<LocalDateTime> getUserAccountCreationDate(@PathVariable Long id) {
         return new ResponseEntity<>(userService.getUserAccountCreationDate(id), HttpStatus.FOUND);
     }
