@@ -67,37 +67,34 @@ public class UserServiceImpl implements UserService{
     @Override
     public User getUserByFirstName(String firstName) {
 
-        Optional<User> user = userRepository.findByFirstName(firstName);
-
-        if(user.isPresent()) {
-            return user.get();
-        } else {
-            throw new NotFoundException(
-                    "User with first name " + firstName + "does not exist");
-        }
+        return userRepository.findByFirstName(firstName)
+                .orElseThrow(() -> new NotFoundException(
+                    "User with first name " + firstName + " does not exist"));
     }
 
     @Override
     public User getUserByLastName(String lastName) {
-        Optional<User> user = userRepository.findByLastName(lastName);
 
-        if(user.isPresent()) {
-            return user.get();
-        } else {
-            throw new NotFoundException(
-                    "User with first name " + lastName + "does not exist");
-        }
+        return userRepository.findByFirstName(lastName)
+                .orElseThrow(() -> new NotFoundException(
+                        "User with first name " + lastName + " does not exist"));
     }
 
     @Override
     public int getUserAccountNumber(Long id) {
-        return userRepository
-                .findById(id).get().getAccountNumber();
+        if (userRepository.findById(id).isPresent()) {
+            return userRepository.findById(id).get().getAccountNumber();
+        } else {
+            throw new NotFoundException("User with id " + id + " does not exist");
+        }
     }
 
     @Override
     public LocalDateTime getUserAccountCreationDate(Long id) {
-        return userRepository
-                .findById(id).get().getCreatedAt();
+        if (userRepository.findById(id).isPresent()) {
+            return userRepository.findById(id).get().getCreatedAt();
+        } else {
+            throw new NotFoundException("User with id " + id + " does not exist");
+        }
     }
 }
