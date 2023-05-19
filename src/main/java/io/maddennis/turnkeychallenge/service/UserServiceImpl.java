@@ -67,7 +67,7 @@ public class UserServiceImpl implements UserService{
     @Override
     public User getUserByFirstName(String firstName) {
 
-        Optional<User> user = userRepository.existsByLastName(firstName);
+        Optional<User> user = userRepository.findByFirstName(firstName);
 
         if(user.isPresent()) {
             return user.get();
@@ -79,7 +79,7 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public User getUserByLastName(String lastName) {
-        Optional<User> user = userRepository.existsByLastName(lastName);
+        Optional<User> user = userRepository.findByLastName(lastName);
 
         if(user.isPresent()) {
             return user.get();
