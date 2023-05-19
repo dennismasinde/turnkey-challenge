@@ -4,6 +4,7 @@ import io.maddennis.turnkeychallenge.entity.User;
 import io.maddennis.turnkeychallenge.exception.NotFoundException;
 import io.maddennis.turnkeychallenge.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -13,9 +14,11 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class UserServiceImpl implements UserService{
 
     private final UserRepository userRepository;
@@ -57,6 +60,8 @@ public class UserServiceImpl implements UserService{
         Pageable paging = PageRequest.of(pageNo, pageSize, Sort.by(sortBy));
         Page<User> pagedResult = userRepository.findAll(paging);
 
+        log.info("getAllUsers result set for page {} ", pageNo);
+
         if(pagedResult.hasContent()) {
             return pagedResult.getContent();
         } else {
@@ -93,6 +98,18 @@ public class UserServiceImpl implements UserService{
     public LocalDateTime getUserAccountCreationDate(Long id) {
         if (userRepository.findById(id).isPresent()) {
             return userRepository.findById(id).get().getCreatedAt();
+        } else {
+            throw new NotFoundException("User with id " + id + " does not exist");
+        }
+    }
+
+    @Override
+    public void deleteUserById(Long id) {
+        Optional<User> user = userRepository.findById(id);
+
+        if(user.isPresent())
+        {
+            userRepository.deleteById(id);
         } else {
             throw new NotFoundException("User with id " + id + " does not exist");
         }

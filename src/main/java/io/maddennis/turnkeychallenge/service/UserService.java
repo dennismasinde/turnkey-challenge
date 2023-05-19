@@ -16,5 +16,6 @@ public interface UserService {
     List<User> getAllUsers(Integer pageNo, Integer pageSize, String sortBy);
     int getUserAccountNumber(Long id);
     LocalDateTime getUserAccountCreationDate(Long id);
+    void deleteUserById(Long id);
 
 }

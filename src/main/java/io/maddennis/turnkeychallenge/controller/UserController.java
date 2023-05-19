@@ -1,6 +1,7 @@
 package io.maddennis.turnkeychallenge.controller;
 
 import io.maddennis.turnkeychallenge.entity.User;
+import io.maddennis.turnkeychallenge.exception.NotFoundException;
 import io.maddennis.turnkeychallenge.service.UserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -18,17 +19,17 @@ public class UserController {
 
     private final UserService userService;
 
-    @PostMapping(path = "/create",produces = "application/json")
+    @PostMapping(path = "/createUser",produces = "application/json")
     public ResponseEntity<User> createUser(@Valid @RequestBody User user) {
         return new ResponseEntity<>(userService.createUser(user), HttpStatus.CREATED);
     }
 
-    @PutMapping(path = "/update/{id}",produces = "application/json")
+    @PutMapping(path = "/updateUser/{id}",produces = "application/json")
     public ResponseEntity<User> updateUser(@Valid @PathVariable Long id, @RequestBody User user) {
         return new ResponseEntity<>(userService.updateUser(id,user), HttpStatus.OK);
     }
 
-    @GetMapping(path = "/getuserbyid/{id}", produces = "application/json")
+    @GetMapping(path = "/getUserById/{id}", produces = "application/json")
     public ResponseEntity<User> getUserById(@PathVariable Long id) {
         return new ResponseEntity<>(userService.getUserById(id), HttpStatus.FOUND);
     }
@@ -38,12 +39,12 @@ public class UserController {
         return new ResponseEntity<>(userService.getAllUsers(pageNo,pageSize,sortBy), HttpStatus.FOUND);
     }
 
-    @GetMapping(path = "/getuserbyfirstname/{firstName}", produces = "application/json")
+    @GetMapping(path = "/getUserByFirstName/{firstName}", produces = "application/json")
     public ResponseEntity<User> getUserByFirstName(@PathVariable String firstName) {
         return new ResponseEntity<>(userService.getUserByFirstName(firstName), HttpStatus.FOUND);
     }
 
-    @GetMapping(path = "/getuserbylastname/{lastName}", produces = "application/json")
+    @GetMapping(path = "/getUserByLastName/{lastName}", produces = "application/json")
     public ResponseEntity<User> getUserByLastName(@PathVariable String lastName) {
         return new ResponseEntity<>(userService.getUserByLastName(lastName), HttpStatus.FOUND);
     }
@@ -56,5 +57,11 @@ public class UserController {
     @GetMapping(path = "/getUserAccCreationDate/{id}", produces = "application/json")
     public ResponseEntity<LocalDateTime> getUserAccountCreationDate(@PathVariable Long id) {
         return new ResponseEntity<>(userService.getUserAccountCreationDate(id), HttpStatus.FOUND);
+    }
+
+    @DeleteMapping("/deleteUserById/{id}")
+    public HttpStatus deleteEmployeeById(@PathVariable("id") Long id) throws NotFoundException {
+        userService.deleteUserById(id);
+        return HttpStatus.FORBIDDEN;
     }
 }
