@@ -22,5 +22,6 @@ public class ApiError {
         this.message = message;
         this.path = path;
         this.dateTime = LocalDateTime.now();
+        this.validationErrors = getValidationErrors();
     }
 }

@@ -1,7 +1,8 @@
-FROM openjdk:17
+FROM maven:3.8.2-jdk-8
 
-EXPOSE 8080
+WORKDIR /turnkey-app
+COPY . .
 
-ADD target/turnkey.jar turnkey.jar/
+RUN mvn clean install
 
-ENTRYPOINT ["java","-jar","turnkey.jar"]
+CMD mvn spring-boot:run

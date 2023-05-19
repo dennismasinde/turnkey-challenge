@@ -13,7 +13,6 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -22,12 +21,13 @@ public class UserServiceImpl implements UserService{
     private final UserRepository userRepository;
     @Override
     public User createUser(User user) {
-        User user1 = new User(
+        User newUser = new User(
                 user.getFirstName(),
                 user.getLastName(),
                 user.getPhoneNumber(),
                 user.getAccountNumber());
-        return userRepository.save(user1);
+
+        return userRepository.save(newUser);
     }
 
     @Override
@@ -60,7 +60,7 @@ public class UserServiceImpl implements UserService{
         if(pagedResult.hasContent()) {
             return pagedResult.getContent();
         } else {
-            return new ArrayList<User>();
+            return new ArrayList<>();
         }
     }
 
@@ -75,7 +75,7 @@ public class UserServiceImpl implements UserService{
     @Override
     public User getUserByLastName(String lastName) {
 
-        return userRepository.findByFirstName(lastName)
+        return userRepository.findByLastName(lastName)
                 .orElseThrow(() -> new NotFoundException(
                         "User with first name " + lastName + " does not exist"));
     }
