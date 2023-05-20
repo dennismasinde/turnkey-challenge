@@ -34,7 +34,7 @@ public class UserController {
         return new ResponseEntity<>(userService.getUserById(id), HttpStatus.FOUND);
     }
 
-    @GetMapping(produces = "application/json")
+    @GetMapping(path = "/getAllUsers",produces = "application/json")
     public ResponseEntity<List<User>> getAllUsers(Integer pageNo, Integer pageSize, String sortBy) {
         return new ResponseEntity<>(userService.getAllUsers(pageNo,pageSize,sortBy), HttpStatus.FOUND);
     }
@@ -60,7 +60,7 @@ public class UserController {
     }
 
     @DeleteMapping("/deleteUserById/{id}")
-    public HttpStatus deleteEmployeeById(@PathVariable("id") Long id) throws NotFoundException {
+    public HttpStatus deleteEmployeeById(@PathVariable Long id) {
         userService.deleteUserById(id);
         return HttpStatus.FORBIDDEN;
     }
