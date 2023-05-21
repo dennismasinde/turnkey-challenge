@@ -1,7 +1,6 @@
 package io.maddennis.turnkeychallenge.controller;
 
 import io.maddennis.turnkeychallenge.entity.User;
-import io.maddennis.turnkeychallenge.exception.NotFoundException;
 import io.maddennis.turnkeychallenge.service.UserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -51,12 +50,12 @@ public class UserController {
 
     @GetMapping(path = "/getUserAccount/{id}", produces = "application/json")
     public ResponseEntity<Integer> getUserAccountNumber(@PathVariable Long id) {
-        return new ResponseEntity<>(userService.getUserAccountNumber(id), HttpStatus.FOUND);
+        return new ResponseEntity<>(userService.getUserById(id).getAccountNumber(), HttpStatus.FOUND);
     }
 
     @GetMapping(path = "/getUserAccCreationDate/{id}", produces = "application/json")
     public ResponseEntity<LocalDateTime> getUserAccountCreationDate(@PathVariable Long id) {
-        return new ResponseEntity<>(userService.getUserAccountCreationDate(id), HttpStatus.FOUND);
+        return new ResponseEntity<>(userService.getUserById(id).getCreatedAt(), HttpStatus.FOUND);
     }
 
     @DeleteMapping("/deleteUserById/{id}")

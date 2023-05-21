@@ -14,8 +14,6 @@ public interface UserService {
     User getUserByFirstName(String firstName);
     User getUserByLastName(String lastName);
     List<User> getAllUsers(Integer pageNo, Integer pageSize, String sortBy);
-    int getUserAccountNumber(Long id);
-    LocalDateTime getUserAccountCreationDate(Long id);
     void deleteUserById(Long id);
 
 }

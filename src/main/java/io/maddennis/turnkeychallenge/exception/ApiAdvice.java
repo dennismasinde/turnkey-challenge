@@ -21,7 +21,7 @@ public class ApiAdvice extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public ApiError handleExceptionMethodArgumentNotValidException(MethodArgumentNotValidException exception, HttpServletRequest request) {
+    public ApiError handleMethodArgumentNotValidException(MethodArgumentNotValidException exception, HttpServletRequest request) {
         log.error("Validation errors for request {} ", request.getServletPath());
         //BindingResult bindingResult = exception
         return new ApiError(400, exception.getMessage(), request.getServletPath());

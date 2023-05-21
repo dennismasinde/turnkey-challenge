@@ -86,24 +86,6 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public int getUserAccountNumber(Long id) {
-        if (userRepository.findById(id).isPresent()) {
-            return userRepository.findById(id).get().getAccountNumber();
-        } else {
-            throw new NotFoundException("User with id " + id + " does not exist");
-        }
-    }
-
-    @Override
-    public LocalDateTime getUserAccountCreationDate(Long id) {
-        if (userRepository.findById(id).isPresent()) {
-            return userRepository.findById(id).get().getCreatedAt();
-        } else {
-            throw new NotFoundException("User with id " + id + " does not exist");
-        }
-    }
-
-    @Override
     public void deleteUserById(Long id) {
         Optional<User> user = userRepository.findById(id);
 
